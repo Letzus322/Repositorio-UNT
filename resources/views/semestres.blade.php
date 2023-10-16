@@ -25,6 +25,34 @@
         </div>
     </div>
 
+    <div id="contenido" class="collapse">
+        <div class="row justify-content-center">
+            <div class="col-md-8">
+                <div class="card">
+                    <div class="card-header">{{ __('Nuevo Semestre') }}</div>
+                    <div class="card-body">
+                        <form method="POST" action="{{ route('semestres.store') }}" class="row g-3">
+                            @csrf
+
+                            <div class="col-md-6">
+                                <label for="nombre_curso" class="form-label">Año del Semestre:</label>
+                                <input type="text" class="form-control" id="año" name="año" required>
+                            </div>
+
+                            <div class="col-md-6">
+                                <label for="malla_curricular" class="form-label">Numero del semestre:</label>
+                                <input type="text" class="form-control" id="numero" name="numero" required>
+                            </div>
+
+                            <div class="col-12">
+                                <button type="submit" class="btn btn-primary">Guardar Curso</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 
 
 

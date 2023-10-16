@@ -13,11 +13,8 @@ class SemestreController2 extends Controller
     public function index()
     {
 
-    // Obtén todos los cursos para mostrar en la vista
     $semestres = Semestre::all();
 
-
-    // Muestra la vista con la lista de cursos
     return view('semestres')->with('semestres', $semestres);
     }
 

@@ -43,5 +43,6 @@ Route::post('/cursos', [App\Http\Controllers\CursosController::class, 'store'])-
 
 Route::get('/semestres', [App\Http\Controllers\SemestreController::class, 'index'])->name('registrarSemestres')->middleware('auth');
 
+Route::post('/semestres', [App\Http\Controllers\Semestrecontroller::class, 'store'])->name('semestres.store')->middleware('auth');
 
 

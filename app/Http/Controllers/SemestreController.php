@@ -43,7 +43,7 @@ class SemestreController extends Controller
             'numero' => $request->numero,
         ]);
     
-        return redirect()->route('semestres')->with('success', 'Semestre creado exitosamente.');
+        return redirect()->route('registrarSemestres')->with('success', 'Semestre creado exitosamente.');
     }
     
 
