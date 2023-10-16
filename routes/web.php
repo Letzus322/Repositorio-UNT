@@ -52,3 +52,4 @@ Route::post('/cargaHoraria/{semestreId}', [App\Http\Controllers\SemestreCursoDoc
 //rutas de docentes
 
 Route::get('/normalSesion', [App\Http\Controllers\NormalSesionController::class, 'index'])->name('normalSesion')->middleware('auth');
+Route::get('/semestreDocente/{semestreId}', [App\Http\Controllers\SemestreDocenteController::class, 'index'])->name('semestreDocente')->middleware('auth');

@@ -21,7 +21,7 @@ class CursosController extends Controller
             'MallaCurricular' => $request->malla_curricular,
         ]);
 
-        return redirect()->route('cursos')->with('success', 'Curso creado exitosamente.');
+        return redirect()->route('registrarCursos')->with('success', 'Curso creado exitosamente.');
     }
 
     public function index()
