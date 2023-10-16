@@ -271,7 +271,7 @@
       </li><!-- End Forms Nav -->
 
       <li class="nav-item">
-        <a  id="carga-link" class="nav-link collapsed" href="{{ route('semestres') }}">
+        <a  id="carga-link" class="nav-link collapsed" href="{{ route('registrarSemestres') }}">
           <i class="bi bi-layout-text-window-reverse"></i><span>Semestres</span>
         </a>
       </li><!-- End Tables Nav -->

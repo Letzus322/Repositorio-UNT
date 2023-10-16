@@ -13,7 +13,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/semestres', [App\Http\Controllers\Semestrecontroller2::class, 'index'])->name('semestres')->middleware('auth');
+Route::get('/semestres', [App\Http\Controllers\Semestrecontroller2::class, 'index'])->name('registrarSemestres')->middleware('auth');
 Route::post('/semestres', [App\Http\Controllers\Semestrecontroller2::class, 'store'])->name('semestres.store')->middleware('auth');
 
 Route::get('/', function () {
