@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\Auth;
 
 class CustomLoginController extends Controller
 {
+
     /**
      * Show the login form.
      *
@@ -16,7 +17,7 @@ class CustomLoginController extends Controller
      */
     public function showLoginForm()
     {
-        return view('auth.login');
+        return view('login');
     }
 
     /**

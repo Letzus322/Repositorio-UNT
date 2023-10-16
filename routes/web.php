@@ -15,7 +15,18 @@ use Illuminate\Support\Facades\Route;
 
 
 Route::get('/', function () {
-    return view('login');
+
+       if (auth()->check()) {
+        // Si el usuario está autenticado
+        if (auth()->user()->type == 1) {
+            return view('adminSession'); // Ruta para administradores
+        } elseif (auth()->user()->type == 0) {
+            return redirect()->route('normalSesion');
+        }
+    }
+    else{
+          return view('login');  
+    }
 });
 
 Route::get('/login', [App\Http\Controllers\CustomLoginController::class, 'showLoginForm'])->name('login');
@@ -50,6 +61,5 @@ Route::post('/cargaHoraria/{semestreId}', [App\Http\Controllers\SemestreCursoDoc
 
 
 //rutas de docentes
-
 Route::get('/normalSesion', [App\Http\Controllers\NormalSesionController::class, 'index'])->name('normalSesion')->middleware('auth');
 Route::get('/semestreDocente/{semestreId}', [App\Http\Controllers\SemestreDocenteController::class, 'index'])->name('semestreDocente')->middleware('auth');
