@@ -9,6 +9,8 @@
             <ol class="breadcrumb">
                 <li class="breadcrumb-item"><a href="index.html">Semestres</a></li>
                 <li class="breadcrumb-item active"></li>
+                <li class="breadcrumb-item"><a href="index.html">pruebita 2</a></li>
+
             </ol>
         </nav>
     </div>

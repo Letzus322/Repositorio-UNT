@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\Cursos;
+use App\Models\Semestre;
 
 class NuevoControlador extends Controller
 {
@@ -27,10 +27,9 @@ class NuevoControlador extends Controller
     public function index()
 {
     // Obtén todos los cursos para mostrar en la vista
-    $cursos = Cursos::all();
-
-    // Muestra la vista con la lista de cursos
-    return view('semestres')->with('cursos', $cursos);
+    $semestres = Semestre::all();
+    
+    return view('semestres')->with('semestres', $semestres);
 }
 
 }
