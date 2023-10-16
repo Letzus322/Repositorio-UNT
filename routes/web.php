@@ -45,4 +45,5 @@ Route::get('/semestres', [App\Http\Controllers\SemestreController::class, 'index
 
 Route::post('/semestres', [App\Http\Controllers\SemestreController::class, 'store'])->name('semestres.store')->middleware('auth');
 
-
+Route::get('/cargaHoraria/{semestreId}', [App\Http\Controllers\CargaHorariaController::class, 'index'])->name('carga')->middleware('auth');
+Route::post('/cargaHoraria/{semestreId}', [App\Http\Controllers\SemestreCursoDocenteController::class, 'store'])->name('semestres_curso_docente.store')->middleware('auth');
