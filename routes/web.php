@@ -13,6 +13,9 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+Route::get('/semestres', [App\Http\Controllers\Semestrecontroller2::class, 'index'])->name('semestres')->middleware('auth');
+Route::post('/semestres', [App\Http\Controllers\Semestrecontroller2::class, 'store'])->name('semestres.store')->middleware('auth');
+
 Route::get('/', function () {
     return view('login');
 });
@@ -40,9 +43,5 @@ Route::get('/cursos', [App\Http\Controllers\CursosController::class, 'index'])->
 
 Route::post('/cursos', [App\Http\Controllers\CursosController::class, 'store'])->name('cursos.store')->middleware('auth');
 
-Route::get('/semestres', [App\Http\Controllers\Semestrecontroller2::class, 'index'])->name('semestres')->middleware('auth');
-Route::post('/semestres', [App\Http\Controllers\Semestrecontroller2::class, 'store'])->name('semestres.store')->middleware('auth');
 
-Route::get('/cargaHoraria/{semestreId}', [App\Http\Controllers\CargaHorariaController::class, 'index'])->name('carga')->middleware('auth');
-Route::post('/cargaHoraria/{semestreId}', [App\Http\Controllers\SemestreCursoDocenteController::class, 'store'])->name('semestres_curso_docente.store')->middleware('auth');
 

@@ -62,7 +62,7 @@
     <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-3">
     @foreach ($semestres as $semestre)
         <div class="col">
-        <a href="{{ route('carga', ['semestreId' => $semestre->id]) }}" class="text-decoration-none">
+        <a href="" class="text-decoration-none">
                 <div class="card border-0 shadow rounded">
                     <div class="card-body bg-light">
                         <h5 class="card-title fw-bold mb-2">Año: {{ $semestre->año }} - Período: {{ $semestre->numero }}</h5>

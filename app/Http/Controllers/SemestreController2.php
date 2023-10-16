@@ -1,8 +1,8 @@
 <?php
 
 namespace App\Http\Controllers;
-use App\Models\Semestre;
 use Illuminate\Http\Request;
+use App\Models\Semestre;
 
 class SemestreController2 extends Controller
 {
