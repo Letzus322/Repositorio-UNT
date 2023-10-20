@@ -272,7 +272,7 @@
 
     
       <li class="nav-item">
-        <a id="formato-link" class="nav-link collapsed" href="{{ route('registrarFormatos') }}">
+        <a id="formato-link" class="nav-link collapsed" href="{{ route('registrarFormatos', ['formatoId' => 'null']) }}">
           <i class="bi bi-file-earmark"></i>
           <span>Formato de Carpetas</span>
         </a>

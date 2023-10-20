@@ -60,14 +60,12 @@ Route::get('/cargaHoraria/{semestreId}', [App\Http\Controllers\CargaHorariaContr
 Route::post('/cargaHoraria/{semestreId}', [App\Http\Controllers\SemestreCursoDocenteController::class, 'store'])->name('semestres_curso_docente.store')->middleware('auth');
 
 
-
-Route::get('/formatos', [App\Http\Controllers\FormatoController::class, 'index'])->name('registrarFormatos')->middleware(['auth', 'admin']);
+Route::get('/formatos/{formatoId?}', [App\Http\Controllers\FormatoController::class, 'index'])->name('registrarFormatos')->middleware(['auth', 'admin']);
 
 Route::post('/formatos', [App\Http\Controllers\FormatoController::class, 'store'])->name('formatos.store')->middleware('auth');
 
 
-Route::get('/formatoCarpeta/{formatoId}', [App\Http\Controllers\FormatoCarpetasController::class, 'index'])->name('formatoCarpeta')->middleware(['auth', 'admin']);
-
+ 
 
 
 

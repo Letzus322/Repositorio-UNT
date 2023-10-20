@@ -36,14 +36,14 @@
 
                             <div class="col-md-6">
                                 <label for="nombre_curso" class="form-label">Nombre del Formato:</label>
-                                <input type="text" class="form-control" id="nombreFormato" name="nombreFormato" required>
+                                <input type="text" class="form-control" id="nombreCarpeta" name="nombreCarpeta" required>
+                                @if ($padre !== 'null')
+                                    <input type="hidden" name="padre" id="padre" value="{{ $padre }}">
+                                @endif
+
                             </div>
 
-                            <div class="col-md-6">
-                                <label for="malla_curricular" class="form-label">Año del Formato:</label>
-                                <input type="text" class="form-control" id="año" name="año" required>
-                            </div>
-
+                           
                             <div class="col-12">
                                 <button type="submit" class="btn btn-primary">Guardar Formato</button>
                             </div>
@@ -57,16 +57,16 @@
 
 
     <div class="card-body">
-    <h5 class="card-title">Lista de semestres</h5>
+    <h5 class="card-title">Lista de formatos</h5>
 
 
     <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-3">
-    @foreach ($formatos as $formato)
+    @foreach ($carpetas as $carpeta)
         <div class="col">
-        <a href="{{ route('formatoCarpeta', ['formatoId' => $formato->id]) }}" class="text-decoration-none">
+        <a href="{{ route('registrarFormatos', ['formatoId' => $carpeta->id]) }}" class="text-decoration-none">
                 <div class="card border-0 shadow rounded">
                     <div class="card-body bg-light">
-                        <h5 class="card-title fw-bold mb-2">Año: {{ $formato->nombreFormato }} - Período: {{ $formato->año }}</h5>
+                        <h5 class="card-title fw-bold mb-2"> {{ $carpeta->nombreCarpeta }} </h5>
                     </div>
                 </div>
             </a>

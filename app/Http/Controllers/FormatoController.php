@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
-use App\Models\Formato;
+use App\Models\Carpeta;
 use Illuminate\Http\Request;
 
 class FormatoController extends Controller
@@ -9,15 +9,23 @@ class FormatoController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
-    {
+    public function index($padre)
+    {     
+        // Obtén los registros de la tabla carpetas con la condición del padre si se proporciona
+        if ($padre == 'null') {
 
-    // Obtén todos los cursos para mostrar en la vista
-    $formatos = Formato::all();
+            $data = Carpeta::whereNull('padre')->get();
+            
+
+        } else {
+            $data = Carpeta::where('padre', $padre)->get();
 
 
-    // Muestra la vista con la lista de cursos
-    return view('formatos')->with('formatos', $formatos);
+        }
+        
+
+        // Muestra la vista con la lista de carpetas
+        return view('formatos')->with('carpetas', $data)->with('padre', $padre);
     }
 
     /**
@@ -34,15 +42,15 @@ class FormatoController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'año' => 'required|integer',
+          
         ]);
         
-        Formato::create([
-            'nombreFormato' => $request->nombreFormato,
-            'año' => $request->año,
+        Carpeta::create([
+            'nombreCarpeta' => $request->nombreCarpeta,
+            'padre' => $request->padre,
         ]);
-    
-        return redirect()->route('registrarFormatos')->with('success', 'Formato creado exitosamente.');
+       
+        return redirect()->route('registrarFormatos', ['formatoId' => 'null'])->with('success', 'Formato creado exitosamente.');
     }
     
 
