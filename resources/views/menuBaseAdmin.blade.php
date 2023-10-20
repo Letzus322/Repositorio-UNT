@@ -270,22 +270,21 @@
  
       </li><!-- End Forms Nav -->
 
+    
+      <li class="nav-item">
+        <a class="nav-link collapsed" href="{{ route('registrarSemestres') }}">
+          <i class="bi bi-file-earmark"></i>
+          <span>Formato de Carpetas</span>
+        </a>
+      </li><!-- End Blank Page Nav -->
+
+
       <li class="nav-item">
         <a  id="carga-link" class="nav-link collapsed" href="{{ route('registrarSemestres') }}">
           <i class="bi bi-layout-text-window-reverse"></i><span>Semestres</span>
         </a>
       </li><!-- End Tables Nav -->
 
-      
-
-     
-
-      <li class="nav-item">
-        <a class="nav-link collapsed" href="pages-blank.html">
-          <i class="bi bi-file-earmark"></i>
-          <span>Funcion En Desarrollo</span>
-        </a>
-      </li><!-- End Blank Page Nav -->
 
     </ul>
 
