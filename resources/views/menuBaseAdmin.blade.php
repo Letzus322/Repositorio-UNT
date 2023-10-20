@@ -272,7 +272,7 @@
 
     
       <li class="nav-item">
-        <a class="nav-link collapsed" href="{{ route('registrarSemestres') }}">
+        <a id="formato-link" class="nav-link collapsed" href="{{ route('registrarFormatos') }}">
           <i class="bi bi-file-earmark"></i>
           <span>Formato de Carpetas</span>
         </a>

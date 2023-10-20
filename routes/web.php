@@ -66,6 +66,10 @@ Route::get('/formatos', [App\Http\Controllers\FormatoController::class, 'index']
 Route::post('/formatos', [App\Http\Controllers\FormatoController::class, 'store'])->name('formatos.store')->middleware('auth');
 
 
+Route::get('/formatoCarpeta/{formatoId}', [App\Http\Controllers\FormatoCarpetasController::class, 'index'])->name('formatoCarpeta')->middleware(['auth', 'admin']);
+
+
+
 
 
 //rutas de docentes

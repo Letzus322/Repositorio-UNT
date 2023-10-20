@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
-use App\Models\Semestre;
+use App\Models\Formato;
 use Illuminate\Http\Request;
 
 class FormatoController extends Controller
@@ -13,11 +13,11 @@ class FormatoController extends Controller
     {
 
     // Obtén todos los cursos para mostrar en la vista
-    $semestres = Semestre::all();
+    $formatos = Formato::all();
 
 
     // Muestra la vista con la lista de cursos
-    return view('semestres')->with('semestres', $semestres);
+    return view('formatos')->with('formatos', $formatos);
     }
 
     /**
@@ -35,15 +35,14 @@ class FormatoController extends Controller
     {
         $request->validate([
             'año' => 'required|integer',
-            'numero' => 'required|integer',
         ]);
         
-        Semestre::create([
+        Formato::create([
+            'nombreFormato' => $request->nombreFormato,
             'año' => $request->año,
-            'numero' => $request->numero,
         ]);
     
-        return redirect()->route('registrarSemestres')->with('success', 'Semestre creado exitosamente.');
+        return redirect()->route('registrarFormatos')->with('success', 'Formato creado exitosamente.');
     }
     
 
