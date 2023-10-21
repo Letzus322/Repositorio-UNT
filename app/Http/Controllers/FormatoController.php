@@ -11,16 +11,16 @@ class FormatoController extends Controller
      * Display a listing of the resource.
      */
     public function index($padre)
-    {     
+    {   $data2 = Archivo::where('padre', $padre)->get();
+
         // Obtén los registros de la tabla carpetas con la condición del padre si se proporciona
         if ($padre == 'null') {
 
             $data = Carpeta::whereNull('padre')->get();
-            
+
 
         } else {
             $data = Carpeta::where('padre', $padre)->get();
-            $data2 = Archivo::where('padre', $padre)->get();
 
 
         }
