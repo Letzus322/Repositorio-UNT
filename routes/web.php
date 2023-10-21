@@ -64,6 +64,7 @@ Route::get('/formatos/{formatoId?}', [App\Http\Controllers\FormatoController::cl
 
 Route::post('/formatos', [App\Http\Controllers\FormatoController::class, 'store'])->name('formatos.store')->middleware('auth');
 
+Route::post('/formatos2', [App\Http\Controllers\ArchivoController::class, 'store'])->name('archivos.store')->middleware('auth');
 
  
 

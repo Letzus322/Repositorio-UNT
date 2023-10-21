@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 use App\Models\Carpeta;
 use Illuminate\Http\Request;
+use App\Models\Archivo;
 
 class FormatoController extends Controller
 {
@@ -19,13 +20,14 @@ class FormatoController extends Controller
 
         } else {
             $data = Carpeta::where('padre', $padre)->get();
+            $data2 = Archivo::where('padre', $padre)->get();
 
 
         }
         
 
         // Muestra la vista con la lista de carpetas
-        return view('formatos')->with('carpetas', $data)->with('padre', $padre);
+        return view('formatos')->with('carpetas', $data)->with('padre', $padre)->with('archivos', $data2);
     }
 
     /**
@@ -49,9 +51,15 @@ class FormatoController extends Controller
             'nombreCarpeta' => $request->nombreCarpeta,
             'padre' => $request->padre,
         ]);
-       
+       if( $request->padre != null){
+        return redirect()->route('registrarFormatos', ['formatoId' => $request->padre])->with('success', 'Formato creado exitosamente.');
+        }
+        else {
         return redirect()->route('registrarFormatos', ['formatoId' => 'null'])->with('success', 'Formato creado exitosamente.');
+        }
     }
+
+
     
 
   

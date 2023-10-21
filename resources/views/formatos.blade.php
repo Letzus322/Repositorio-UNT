@@ -54,7 +54,7 @@
 
                 
                     <div class="card-body">
-                        <form method="POST" action="{{ route('formatos.store') }}" class="row g-3">
+                        <form method="POST" action="{{ route('archivos.store') }}" class="row g-3">
                             @csrf
 
                             <div class="col-md-6">
@@ -62,8 +62,9 @@
 
 
 
-                                <input type="text" class="form-control" id="nombreCarpeta" name="nombreCarpeta" required>
-                             
+                                <input type="text" class="form-control" id="nombreArchivo" name="nombreArchivo" required>
+                               
+                                <input type="hidden" name="padre" id="padre" value="{{ $padre }}">                             
 
                             </div>
 
@@ -155,6 +156,20 @@
             </a>
         </div>
     @endforeach
+
+    @foreach ($archivos as $archivo)
+        <div class="col">
+        <a href="" class="text-decoration-none">
+                <div class="card border-0 shadow rounded">
+                    <div class="card-body bg-light">
+                        <h5 class="card-title fw-bold mb-2"> {{ $archivo->nombreArchivo }} </h5>
+                    </div>
+                </div>
+            </a>
+        </div>
+    @endforeach
+
+
 </div>
 
 
