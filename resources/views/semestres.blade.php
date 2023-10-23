@@ -7,8 +7,8 @@
     <div class="pagetitle">
         <nav>
             <ol class="breadcrumb">
-                <li class="breadcrumb-item"><a href="index.html">Semestres</a></li>
-                <li class="breadcrumb-item active"></li>
+                <li class="breadcrumb-item"><a href="{{ route('admin') }}">Home</a></li>
+                <li class="breadcrumb-item active">Semestres</li>
             </ol>
         </nav>
     </div>  

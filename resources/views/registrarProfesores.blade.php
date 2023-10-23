@@ -9,8 +9,8 @@
     <h1>Registrar Profesores</h1>
     <nav>
       <ol class="breadcrumb">
-        <li class="breadcrumb-item"><a href="index.html">Home</a></li>
-        <li class="breadcrumb-item active">Dashboard</li>
+        <li class="breadcrumb-item"><a href="{{ route('admin') }}">Home</a></li>
+        <li class="breadcrumb-item active">Profesores</li>
       </ol>
     </nav>
 
