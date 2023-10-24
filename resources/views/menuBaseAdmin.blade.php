@@ -173,7 +173,7 @@
          
             <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
                                     <?php echo e(Auth::user()->name); ?>
-                                    <?php echo e(Auth::user()->type); ?>
+                              
 
                                 </a>
           </a><!-- End Profile Iamge Icon -->
@@ -258,14 +258,14 @@
 
       <li class="nav-item">
         <a  id="profesores-link" class="nav-link collapsed" data-bs-target="#components-nav" data-bs-toggle="" href="{{ route('registrarProfesores') }}">
-          <i class="bi bi-menu-button-wide"></i><span>Profesores</span>
+        <i class="bi bi-person"></i><span>Profesores</span>
         </a>
         
       </li><!-- End Components Nav -->
 
       <li class="nav-item">
         <a id="cursos-link" class="nav-link collapsed" href="{{ route('registrarCursos') }}">
-          <i class="bi bi-journal-text"></i><span>Cursos</span>
+        <i class="bi bi-book"></i><span>Cursos</span>
         </a>
  
       </li><!-- End Forms Nav -->
@@ -281,7 +281,7 @@
 
       <li class="nav-item">
         <a  id="carga-link" class="nav-link collapsed" href="{{ route('registrarSemestres') }}">
-          <i class="bi bi-layout-text-window-reverse"></i><span>Semestres</span>
+          <i class="bi bi-calendar2-week"></i><span>Semestres</span>
         </a>
       </li><!-- End Tables Nav -->
 

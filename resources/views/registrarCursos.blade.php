@@ -21,42 +21,22 @@
         <div class="col-lg-8">
             <div class="row">
 
-                <div class="col-xxl-4 col-md-6">
-                    <div class="card info-card sales-card">
-                        <div class="card-body">
-                            <h5 class="card-title">Numero de profesores</h5>
-                            <div class="d-flex align-items-center">
-                                <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
-                                    <i class="bi bi-cart"></i>
-                                </div>
-                                <div class="ps-3">
-                                    <h6></h6>
-                                    <span class="text-success small pt-1 fw-bold"></span>
-                                    <span class="text-muted small pt-2 ps-1"></span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                
 
                 <div class="col-xxl-4 col-md-6">
                     <div id="toggleButton" class="btn btn-primary btn-sm card info-card revenue-card"
                         data-bs-toggle="collapse" data-bs-target="#contenido">
-                        <div class="card-body">
-                            <h5 class="card-title">Agregar nuevo curso</h5>
-                            <div class="d-flex align-items-center">
-                                <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
-                                    <i class="bi bi-cart"></i>
-                                </div>
-                                <div class="ps-3">
-                                    <h6></h6>
-                                    <span class="text-success small pt-1 fw-bold"></span>
-                                    <span class="text-muted small pt-2 ps-1"></span>
-                                </div>
+
+                        <div class="d-flex align-items-center ">
+                            <div class="card-icon rounded-circle d-flex align-items-center justify-content-center mr-2">
+                                <i class="bi bi-journal-plus"></i>
                             </div>
+
+                            <h5 class="card-title ms-4" > Agregar nuevo curso</h5>
                         </div>
                     </div>
                 </div>
+
             </div>
 
             <div id="contenido" class="collapse">
@@ -89,27 +69,29 @@
         </div>
 
         <div class="col-12">
-            <div class="card recent-sales overflow-auto">
+            <div class="card">
                 <div class="card-body">
-                    <h5 class="card-title"> Lista de Cursos </h5>
-                    <table class="table table-borderless datatable">
-                        <thead>
-                            <tr>
-                                <th scope="col">#</th>
-                                <th scope="col">Nombre</th>
-                                <th scope="col">Malla Curricular</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @foreach ($cursos as $curso)
-                            <tr>
-                                <th scope="row"><a href="#">{{ $curso->id }}</a></th>
-                                <td>{{ $curso->NombreCurso }}</td>
-                                <td>{{ $curso->MallaCurricular }}</td>
-                            </tr>
-                            @endforeach
-                        </tbody>
-                    </table>
+                <h5 class="card-title ">Lista de Cursos</h2> <!-- Utiliza h2 para hacer el texto más grande -->
+                    <div class="table-responsive">
+                        <table class="table table-hover">
+                            <thead>
+                                <tr>
+                                    <th scope="col">Número</th>
+                                    <th scope="col">Nombre</th>
+                                    <th scope="col">Malla Curricular</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach ($cursos as $curso)
+                                <tr>
+                                    <th scope="row">{{ $curso->id }}</a></th>
+                                    <td>{{ $curso->NombreCurso }}</td>
+                                    <td>{{ $curso->MallaCurricular }}</td>
+                                </tr>
+                                @endforeach
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
             </div>
         </div>
@@ -122,7 +104,6 @@
         profesoresLink.classList.remove('collapsed');
     });
 </script>
-</body>
-</html>
+
 
 </main><!-- End #main -->
