@@ -83,7 +83,7 @@
                 <div class="modal-content">
                     <div class="modal-header">
                         <h5 class="modal-title" id="nuevoArchivoModalLabel">Formato de archivo</h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" style="font-size: 1.5rem;"></button>
                     </div>
                     <div class="modal-body">
                         <form method="POST" action="{{ route('archivos.store') }}">
@@ -96,7 +96,6 @@
                             </div>
 
                             <div class="modal-footer">
-                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
                                 <button type="submit" class="btn btn-primary">Guardar</button>
                             </div>
                         </form>
@@ -109,7 +108,6 @@
 
 
 
-        <!-- Modal -->
     <div class="modal fade" id="nuevaCarpetaModal" tabindex="-1" aria-labelledby="contenidoModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
@@ -121,7 +119,8 @@
                             Nuevo Formato
                         @endif
                     </h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" style="font-size: 1.5rem;"></button>
+
                 </div>
                 <div class="modal-body">
                     <form method="POST" action="{{ route('formatos.store') }}">
@@ -140,7 +139,7 @@
                         </div>
 
                         <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                           
 
                             @if ($padre !== 'null')
                             <button type="submit" class="btn btn-primary">Guardar Carpeta</button>
