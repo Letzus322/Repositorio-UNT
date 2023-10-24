@@ -1,7 +1,9 @@
 <?php
 
 namespace App\Http\Controllers;
+use App\Models\Carpeta;
 use App\Models\Semestre;
+
 use Illuminate\Http\Request;
 
 class SemestreController extends Controller
@@ -14,10 +16,10 @@ class SemestreController extends Controller
 
     // Obtén todos los cursos para mostrar en la vista
     $semestres = Semestre::all();
-
+    $formatos = Carpeta::whereNull('padre')->get();
 
     // Muestra la vista con la lista de cursos
-    return view('semestres')->with('semestres', $semestres);
+    return view('semestres')->with('semestres', $semestres)->with('formatos', $formatos);
     }
 
     /**
@@ -41,6 +43,7 @@ class SemestreController extends Controller
         Semestre::create([
             'año' => $request->año,
             'numero' => $request->numero,
+            'idCarpeta' => $request->idCarpeta,
         ]);
     
         return redirect()->route('registrarSemestres')->with('success', 'Semestre creado exitosamente.');

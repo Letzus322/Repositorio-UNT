@@ -42,24 +42,38 @@
 
         <div id="contenido" class="collapse">
             <div class="row justify-content-center">
-                <div class="col-md-8">
+                <div class="col-md-12">
                     <div class="card">
                         <div class="card-header">{{ __('Nuevo Semestre') }}</div>
                         <div class="card-body">
                             <form method="POST" action="{{ route('semestres.store') }}" class="row g-3">
                                 @csrf
 
-                                <div class="col-md-6">
+                                <div class="col-md-4">
                                     <label for="nombre_curso" class="form-label">Año del Semestre:</label>
                                     <input type="text" class="form-control" id="año" name="año" required>
                                 </div>
 
-                                <div class="col-md-6">
+                                <div class="col-md-4">
                                     <label for="malla_curricular" class="form-label">Numero del semestre:</label>
                                     <input type="text" class="form-control" id="numero" name="numero" required>
                                 </div>
 
-                                <div class="col-12">
+                                <div class="col-md-4 ">
+                                    <label for="malla_curricular" class="form-label">Formato:</label>
+                                    <div class="input-group">
+                                        <label class="input-group-text" for="dropdownProfesores">Formato</label>
+                                        <select class="form-select" id="dropdownProfesores">
+                                            <option selected>Selecciona un formato...</option>
+                                            @foreach($formatos as $formato)
+                                                <option value="{{ $formato->id }}">{{ $formato->nombreCarpeta }}</option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+                                </div>
+                                <input type="hidden" name="idCarpeta" id="idCarpeta">
+
+                                <div class="col-12 ">
                                     <button type="submit" class="btn btn-primary">Guardar Curso</button>
                                 </div>
                             </form>
@@ -100,5 +114,17 @@
         const profesoresLink = document.getElementById('carga-link');
         profesoresLink.classList.remove('collapsed');
     });
+
+    // Obtener el elemento del menú desplegable
+var dropdown = document.getElementById("dropdownProfesores");
+
+// Capturar el evento de cambio en el menú desplegable
+dropdown.addEventListener("change", function() {
+    // Obtener el valor seleccionado del menú desplegable
+    var selectedValue = dropdown.value;
+    
+    // Asignar el valor seleccionado al campo oculto idFormato
+    document.getElementById("idCarpeta").value = selectedValue;
+});
 </script>
 

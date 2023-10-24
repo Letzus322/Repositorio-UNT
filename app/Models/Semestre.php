@@ -10,7 +10,7 @@ class Semestre extends Model
     use HasFactory;
     protected $table = 'semestres'; // Reemplaza 'nombre_de_tu_tabla' con el nombre real de tu tabla en la base de datos
 
-    protected $fillable = ['año', 'numero']; // Especifica las columnas que pueden ser llenadas masivamente
+    protected $fillable = ['año', 'numero','idCarpeta']; // Especifica las columnas que pueden ser llenadas masivamente
 
     public function semestreCursoDocentes()
     {
