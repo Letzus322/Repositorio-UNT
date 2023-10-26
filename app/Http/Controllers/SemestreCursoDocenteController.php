@@ -46,7 +46,7 @@ class SemestreCursoDocenteController extends Controller
         // Verificar si la carpeta no existe
         if (!file_exists($carpeta)) {
             // Intentar crear la carpeta
-            if (mkdir($carpeta, 0777, true)) {
+            if (mkdir($carpeta, 0755, true)) {
                 echo 'Carpeta creada con éxito.';
             } else {
                 echo 'Error al crear la carpeta.';
