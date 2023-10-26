@@ -60,7 +60,7 @@ class SemestreCursoDocenteController extends Controller
         $carpeta2 = public_path($carpeta2);
         if (!file_exists($carpeta2)) {
             // Intentar crear la carpeta
-            if (mkdir($carpeta2, 0777, true)) {
+            if (mkdir($carpeta2, 0755, true)) {
                 echo 'Carpeta creada con éxito.';
             } else {
                 echo 'Error al crear la carpeta.';
