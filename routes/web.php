@@ -19,7 +19,7 @@ Route::get('/', function () {
        if (auth()->check()) {
         // Si el usuario está autenticado
         if (auth()->user()->type == 1) {
-            return view('adminSession'); // Ruta para administradores
+            return redirect()->route('admin');
         } elseif (auth()->user()->type == 0) {
             return redirect()->route('normalSesion');
         }
@@ -35,15 +35,16 @@ Route::post('/logout', [App\Http\Controllers\CustomLoginController::class, 'logo
 
 
 //USUARIOS RUTAS
-Route::get('/adminSession', function () {
-    return view('adminSession');
-})->middleware(['auth', 'admin'])->name('admin');
 
-Route::get('/normalSession', function () {
-    return view('normalSession');
-})->middleware('auth');
+
 
 //RUTAS DE LOS ADMINISTRADORES
+Route::get('/adminSession', [App\Http\Controllers\adminSessionController::class, 'index'])->name('admin')->middleware(['auth', 'admin']);
+Route::get('/adminSession/download/{filename}',[App\Http\Controllers\adminSessionController::class, 'download'])->name('adminSession.download');
+
+
+
+
 Route::get('/profesores', [App\Http\Controllers\UserController::class, 'mostrarDatos'])->name('registrarProfesores')->middleware(['auth', 'admin']);
 Route::post('/registerPropio', [App\Http\Controllers\CustomRegisterController2::class, 'register'])->name('registerPropio');
 

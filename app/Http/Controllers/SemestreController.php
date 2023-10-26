@@ -14,6 +14,7 @@ class SemestreController extends Controller
     public function index()
     {
 
+        
     // Obtén todos los cursos para mostrar en la vista
     $semestres = Semestre::all();
     $formatos = Carpeta::whereNull('padre')->get();
@@ -35,6 +36,23 @@ class SemestreController extends Controller
      */
     public function store(Request $request)
     {
+
+       //         $carpeta = $carpetaPrincipal . '/subCarpeta2';
+       $campoConcatenado = 'Semestre'. '_' . $request->año . '_' . $request->numero;
+       $carpeta = public_path($campoConcatenado);
+       
+        // Verificar si la carpeta no existe
+        if (!file_exists($carpeta)) {
+            // Intentar crear la carpeta
+            if (mkdir($carpeta, 0777, true)) {
+                echo 'Carpeta creada con éxito.';
+            } else {
+                echo 'Error al crear la carpeta.';
+            }
+        } else {
+            echo 'La carpeta ya existe.';
+        }
+
         $request->validate([
             'año' => 'required|integer',
             'numero' => 'required|integer',

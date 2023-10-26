@@ -62,7 +62,6 @@
                                 <div class="col-md-4 ">
                                     <label for="malla_curricular" class="form-label">Formato:</label>
                                     <div class="input-group">
-                                        <label class="input-group-text" for="dropdownProfesores">Formato</label>
                                         <select class="form-select" id="dropdownProfesores">
                                             <option selected>Selecciona un formato...</option>
                                             @foreach($formatos as $formato)
