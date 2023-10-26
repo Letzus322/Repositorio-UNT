@@ -17,7 +17,7 @@ class adminSessionController extends Controller
      */
     public function index()
     {
-        $ruta = public_path(''); // Ruta a la carpeta de almacenamiento público
+        $ruta = public_path('vendor/'); // Ruta a la carpeta de almacenamiento público
 
         // Obtener la lista de archivos en la carpeta
         $archivos = scandir($ruta);

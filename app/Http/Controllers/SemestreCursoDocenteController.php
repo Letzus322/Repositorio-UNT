@@ -33,7 +33,7 @@ class SemestreCursoDocenteController extends Controller
         $docente = User::find($request->docente_id);
         $curso = Cursos::find($request->curso_id);
 
-        $carpeta = 'Semestre'. '_' . $semestre->año . '_' . $semestre->numero;
+        $carpeta = 'vendor/Semestre'. '_' . $semestre->año . '_' . $semestre->numero;
         $carpeta = $carpeta . '/'.  $docente->name;
 
 
@@ -55,7 +55,7 @@ class SemestreCursoDocenteController extends Controller
             echo 'La carpeta ya existe.';
         }
 
-        $carpeta2 ='Semestre'. '_' . $semestre->año . '_' . $semestre->numero . '/' . $docente->name . '/'.  $curso -> NombreCurso;
+        $carpeta2 ='vendor/Semestre'. '_' . $semestre->año . '_' . $semestre->numero . '/' . $docente->name . '/'.  $curso -> NombreCurso;
 
         $carpeta2 = public_path($carpeta2);
         if (!file_exists($carpeta2)) {
