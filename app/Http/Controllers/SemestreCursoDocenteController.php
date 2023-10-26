@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Models\Semestre;
 use App\Models\User;
 use App\Models\Cursos;
+use Illuminate\Support\Facades\Storage;
 
 class SemestreCursoDocenteController extends Controller
 {
@@ -33,41 +34,30 @@ class SemestreCursoDocenteController extends Controller
         $docente = User::find($request->docente_id);
         $curso = Cursos::find($request->curso_id);
 
-        $carpeta = 'vendor/Semestre'. '_' . $semestre->año . '_' . $semestre->numero;
+        $carpeta = 'Semestre'. '_' . $semestre->año . '_' . $semestre->numero;
         $carpeta = $carpeta . '/'.  $docente->name;
 
+        $carpeta2 ='Semestre'. '_' . $semestre->año . '_' . $semestre->numero . '/' . $docente->name . '/'.  $curso -> NombreCurso;
 
 
-        $carpeta = public_path($carpeta);
 
  
-
-
-        // Verificar si la carpeta no existe
-        if (!file_exists($carpeta)) {
-            // Intentar crear la carpeta
-            if (mkdir($carpeta, 0755, true)) {
-                echo 'Carpeta creada con éxito.';
+        try {
+            // Verificar si la carpeta no existe
+            if (!Storage::exists($carpeta2)) {
+                // Intentar crear la carpeta
+                Storage::makeDirectory($carpeta2);
+               
             } else {
-                echo 'Error al crear la carpeta.';
+                            // 
+
             }
-        } else {
-            echo 'La carpeta ya existe.';
+        } catch (\Exception $e) {            // 
+
+          
         }
 
-        $carpeta2 ='vendor/Semestre'. '_' . $semestre->año . '_' . $semestre->numero . '/' . $docente->name . '/'.  $curso -> NombreCurso;
 
-        $carpeta2 = public_path($carpeta2);
-        if (!file_exists($carpeta2)) {
-            // Intentar crear la carpeta
-            if (mkdir($carpeta2, 0755, true)) {
-                echo 'Carpeta creada con éxito.';
-            } else {
-                echo 'Error al crear la carpeta.';
-            }
-        } else {
-            echo 'La carpeta ya existe.';
-        }
 
 
 
