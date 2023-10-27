@@ -16,8 +16,18 @@
 <h1>Archivos Disponibles</h1>
     <ul>
     @foreach($archivos as $archivo)
-      <a href="{{ route('adminSession.download', ['filename' => $archivo]) }}">{{ $archivo }}</a><br>
-    @endforeach
+      @if (is_dir(storage_path ('app/'.$archivo)))
+         
+         
+          <form action="{{ route('adminSession.mostrarContenidos') }}" method="GET">
+            @csrf
+            <input type="hidden" name="datos" value="{{  $archivo }}">
+            <button type="submit">{{ $archivo }}</button>
+        </form>
+      @else
+          <a href="{{ route('adminSession.download', ['filename' => $archivo]) }}">{{ $archivo }}</a><br>
+      @endif
+  @endforeach
     </ul>
 
 <script>

@@ -28,6 +28,21 @@ class adminSessionController extends Controller
 
     }
 
+
+    public function mostrarContenidosCarpeta(Request $request)
+    {   
+        $datos = $request->input('datos');
+
+        $ruta= 'app/'.$datos;
+        // Obtener la lista de archivos y carpetas en la ruta especificada
+        $archivos = scandir(storage_path($ruta));
+        // Eliminar los elementos '.' y '..' de la lista
+        $archivos = array_diff($archivos, ['.', '..']);
+ 
+        // Pasar la lista de archivos y carpetas a la vista
+        return view('mostrarContenidos', compact('archivos', 'datos'));
+    }
+
     public function download($filename)
     {
         $rutaArchivo = public_path($filename);

@@ -41,6 +41,7 @@ Route::post('/logout', [App\Http\Controllers\CustomLoginController::class, 'logo
 //RUTAS DE LOS ADMINISTRADORES
 Route::get('/adminSession', [App\Http\Controllers\adminSessionController::class, 'index'])->name('admin')->middleware(['auth', 'admin']);
 Route::get('/adminSession/download/{filename}',[App\Http\Controllers\adminSessionController::class, 'download'])->name('adminSession.download');
+Route::get('/adminSession/mostrarContenidos', [App\Http\Controllers\adminSessionController::class, 'mostrarContenidosCarpeta'] )->name('adminSession.mostrarContenidos');
 
 
 
