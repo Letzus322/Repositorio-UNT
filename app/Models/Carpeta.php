@@ -12,5 +12,8 @@ class Carpeta extends Model
 
     protected $fillable = ['nombreCarpeta', 'padre']; // Especifica las columnas que pueden ser llenadas masivamente
 
- 
+    public function hijos()
+    {
+        return $this->hasMany(Carpeta::class, 'padre', 'id');
+    }
 }

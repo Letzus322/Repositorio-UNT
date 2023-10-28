@@ -7,6 +7,8 @@ use Illuminate\Http\Request;
 use App\Models\Semestre;
 use App\Models\User;
 use App\Models\Cursos;
+use App\Models\Carpeta;
+
 use Illuminate\Support\Facades\Storage;
 
 class SemestreCursoDocenteController extends Controller
@@ -27,12 +29,39 @@ class SemestreCursoDocenteController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
+    public function crearEstructura($carpetaId, $rutaPadre = '')
+    {
+        // Obtener la carpeta por su ID
+        $carpeta = Carpeta::find($carpetaId);
+    
+        // Verificar si la carpeta existe
+        if ($carpeta) {
+            // Crear la carpeta dentro de su carpeta padre
+            if( $carpeta->padre != null){
+            $rutaCompleta = $rutaPadre . '/' . $carpeta->nombreCarpeta;
+            Storage::makeDirectory($rutaCompleta);
+        } else{
+            $rutaCompleta =$rutaPadre;
+        }
+            // Obtener todas las subcarpetas de la carpeta actual
+            $subcarpetas = $carpeta->hijos;
+    
+            // Recorrer las subcarpetas y llamar recursivamente a la función para crearlas dentro de su carpeta padre
+            foreach ($subcarpetas as $subcarpeta) {
+                $this->crearEstructura($subcarpeta->id, $rutaCompleta);
+            }
+        }
+    }
     public function store(Request $request)
     {
 
         $semestre = Semestre::find($request->semestre_id);
+        error_log(print_r($semestre->idCarpeta, true));
+
         $docente = User::find($request->docente_id);
         $curso = Cursos::find($request->curso_id);
+
+        $carpeta = Carpeta::find($request->formato_id);
 
         $carpeta = 'Semestre'. '_' . $semestre->año . '_' . $semestre->numero;
         $carpeta = $carpeta . '/'.  $docente->name;
@@ -40,8 +69,9 @@ class SemestreCursoDocenteController extends Controller
         $carpeta2 ='Semestre'. '_' . $semestre->año . '_' . $semestre->numero . '/' . $docente->name . '/'.  $curso -> NombreCurso;
 
 
+        $idCarpeta = $semestre->idCarpeta;
+        $this->crearEstructura($idCarpeta,$carpeta2);
 
- 
         try {
             // Verificar si la carpeta no existe
             if (!Storage::exists($carpeta2)) {
