@@ -78,5 +78,7 @@ Route::get('/normalSesion', [App\Http\Controllers\NormalSesionController::class,
 Route::get('/normalSesion/download',[App\Http\Controllers\NormalSesionController::class, 'download'])->name('normalSesion.download');
 Route::get('/normalSesion/mostrarContenidos', [App\Http\Controllers\NormalSesionController::class, 'mostrarContenidosCarpeta'] )->name('normalSesion.mostrarContenidos');
 
+Route::post('/subirarchivo',  [App\Http\Controllers\NormalSesionController::class, 'subirArchivo'] )->name('normalSesion.subirArchivo');
+
 
 Route::get('/semestreDocente/{semestreId}', [App\Http\Controllers\SemestreDocenteController::class, 'index'])->name('semestreDocente')->middleware('auth');

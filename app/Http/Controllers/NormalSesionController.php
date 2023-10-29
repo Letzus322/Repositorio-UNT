@@ -74,6 +74,26 @@ class NormalSesionController extends Controller
         }
     }
 
+
+    public function subirArchivo(Request $request)
+    {       $rutaArchivo = $request->input('ruta');
+        // Validar el formulario
+        $request->validate([
+        ]);
+
+        // Obtener el archivo del formulario
+        $archivo = $request->file('archivo');
+
+        $nombreArchivoOriginal = $archivo->getClientOriginalName();
+        $rutaArchivo = $archivo->storeAs($rutaArchivo, $nombreArchivoOriginal);
+
+      
+        
+        // Puedes guardar información adicional sobre el archivo en la base de datos si es necesario
+
+        // Redirigir de vuelta a la página anterior con un mensaje de éxito
+        return back()->with('success', 'El archivo se ha subido correctamente.');
+    }
     /**
      * Store a newly created resource in storage.
      */
