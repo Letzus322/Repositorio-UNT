@@ -22,14 +22,20 @@
 
     <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-3">
     @foreach ($semestres as $semestre)
-        <div class="col">
-        <a href="{{ route('semestreDocente', ['semestreId' => $semestre->id]) }}" class="text-decoration-none">
-                <div class="card border-0 shadow rounded">
-                    <div class="card-body bg-light">
-                        <h5 class="card-title fw-bold mb-2">Año: {{ $semestre->año }} - Período: {{ $semestre->numero }}</h5>
+   
+         
+       
+
+       <div class="col-6 mb-3">
+                <a href="{{ route('normalSesion.mostrarContenidos', ['datos' => 'Semestre_'.  $semestre->año .'_' . $semestre->numero . '/' .Auth::user()->name]) }}" class="text-decoration-none">
+                    <div class="card border-0 rounded text-center d-flex align-items-center justify-content-center">
+                        <i class="bi bi-folder text-primary display-1 mb-2" style="margin-top: 20px;"></i>
+                        <h6 class="card-title fw-bold">Año: {{ $semestre->año }} - Período: {{ $semestre->numero }}</h6>
                     </div>
-                </div>
-            </a>
+                </a>
         </div>
+ 
+
+
     @endforeach
 </div>

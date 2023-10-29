@@ -40,7 +40,7 @@ Route::post('/logout', [App\Http\Controllers\CustomLoginController::class, 'logo
 
 //RUTAS DE LOS ADMINISTRADORES
 Route::get('/adminSession', [App\Http\Controllers\adminSessionController::class, 'index'])->name('admin')->middleware(['auth', 'admin']);
-Route::get('/adminSession/download/{filename}',[App\Http\Controllers\adminSessionController::class, 'download'])->name('adminSession.download');
+Route::get('/adminSession/download',[App\Http\Controllers\adminSessionController::class, 'download'])->name('adminSession.download');
 Route::get('/adminSession/mostrarContenidos', [App\Http\Controllers\adminSessionController::class, 'mostrarContenidosCarpeta'] )->name('adminSession.mostrarContenidos');
 
 
@@ -75,4 +75,8 @@ Route::post('/formatos2', [App\Http\Controllers\ArchivoController::class, 'store
 
 //rutas de docentes
 Route::get('/normalSesion', [App\Http\Controllers\NormalSesionController::class, 'index'])->name('normalSesion')->middleware('auth');
+Route::get('/normalSesion/download',[App\Http\Controllers\NormalSesionController::class, 'download'])->name('normalSesion.download');
+Route::get('/normalSesion/mostrarContenidos', [App\Http\Controllers\NormalSesionController::class, 'mostrarContenidosCarpeta'] )->name('normalSesion.mostrarContenidos');
+
+
 Route::get('/semestreDocente/{semestreId}', [App\Http\Controllers\SemestreDocenteController::class, 'index'])->name('semestreDocente')->middleware('auth');

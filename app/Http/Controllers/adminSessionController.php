@@ -7,6 +7,7 @@ use App\Models\Semestre;
 use App\Models\SemestreCursoDocente;
 use Illuminate\Support\Facades\Auth; // Importa la clase Auth
 use Illuminate\Support\Facades\Response;
+use Illuminate\Support\Facades\Storage;
 
 use Illuminate\Http\Request;
 
@@ -43,17 +44,28 @@ class adminSessionController extends Controller
         return view('mostrarContenidos', compact('archivos', 'datos'));
     }
 
-    public function download($filename)
+    public function download(Request $request)
     {
-        $rutaArchivo = public_path($filename);
+        // Ruta al archivo en el sistema de almacenamiento
+        $rutaArchivo = $request->input('ruta');
 
         // Verificar si el archivo existe
-        if (file_exists($rutaArchivo)) {
+        if (Storage::exists($rutaArchivo)) {
+            // Obtener el contenido del archivo
+
+            $file = Storage::get($rutaArchivo);
+                
+            // Definir el tipo de respuesta
+            $headers = [
+                'Content-Type' => Storage::mimeType($rutaArchivo),
+                'Content-Disposition' => 'attachment; filename="' . basename($rutaArchivo) . '"',
+            ];
+    
             // Descargar el archivo
-            return Response::download($rutaArchivo, $filename);
+            return response($file, 200, $headers);
         } else {
             // Redirigir a alguna página de error si el archivo no existe
-            return redirect()->route('error.page');
+            return redirect()->route('admin');
         }
     }
 
