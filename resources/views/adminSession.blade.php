@@ -3,32 +3,42 @@
 @section('content')
 
 <main id="main" class="main">
-
 <div class="pagetitle">
-  <h1>Dashboard 2024 - 01</h1>
-  <nav>
-    <ol class="breadcrumb">
-      <li class="breadcrumb-item"><a href="{{ route('admin') }}">Home</a></li>
-      <li class="breadcrumb-item active">Dashboard</li>
-    </ol>
-  </nav>
-</div><!-- End Page Title -->
-<h1>Archivos Disponibles</h1>
-    <ul>
-    @foreach($archivos as $archivo)
-      @if (is_dir(storage_path ('app/'.$archivo)))
-         
-         
-          <form action="{{ route('adminSession.mostrarContenidos') }}" method="GET">
-            @csrf
-            <input type="hidden" name="datos" value="{{  $archivo }}">
-            <button type="submit">{{ $archivo }}</button>
-        </form>
-      @else
-          <a href="{{ route('adminSession.download', ['filename' => $archivo]) }}">{{ $archivo }}</a><br>
-      @endif
-  @endforeach
-    </ul>
+
+  <div class="pagetitle">
+          <h1>Dashboard {{ $semestreActual }} </h1>
+
+          <nav>
+              <ol class="breadcrumb">
+                  <li class="breadcrumb-item"><a href="{{ route('admin') }}">Home</a></li>
+                  <li class="breadcrumb-item active">Dashboard</li>
+              </ol>
+          </nav>
+  </div>
+
+  @foreach($cursos as $curso)
+    <div class="curso mb-4">
+        <h4>Curso: {{ $curso->curso->NombreCurso }}</h4>
+        <p><strong>Docente:</strong> {{ $curso->docente->name }}</p>
+        <div class="carpetas">
+            @foreach($estructuraJSON['hijos'] as $carpeta)
+                @include('carpetas', ['carpeta' => $carpeta])
+            @endforeach
+        </div>
+    </div>
+@endforeach
+
+
+
+
+
+
+
+
+
+</div>
+
+
 
 <script>
     document.addEventListener("DOMContentLoaded", function() {

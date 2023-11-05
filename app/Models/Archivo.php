@@ -12,5 +12,8 @@ class Archivo extends Model
 
     protected $fillable = ['nombreArchivo', 'padre']; // Especifica las columnas que pueden ser llenadas masivamente
 
- 
+    public function hijos()
+    {
+        return $this->hasMany(Archivo::class, 'padre', 'id');
+    }
 }

@@ -137,12 +137,48 @@
                             </tr>
                         </thead>
                         <tbody>
+                        @php
+                        $contador = 1;
+                        @endphp
+
                             @foreach ($users as $user)
                             <tr>
-                                <th scope="row">{{ $user->id }}</th>
+                            <th scope="row">{{ $contador }}</th>
                                 <td>{{ $user->name }}</td>
                                 <td>{{ $user->email }}</td>
+                                <td>
+                                    <form action="{{ route('eliminar.usuario') }}" method="POST" class="d-inline">
+                                        @csrf
+                                        <input type="hidden" name="id" value="{{ $user->id }}">
+                                        <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#confirmarEliminar{{ $user->id }}">
+                                            Eliminar
+                                        </button>
+                                        <!-- Modal de Confirmación -->
+                                        <div class="modal fade" id="confirmarEliminar{{ $user->id }}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+
+                                            <div class="modal-dialog">
+                                                <div class="modal-content">
+                                                    <div class="modal-header">
+                                                        <h5 class="modal-title" id="exampleModalLabel">Confirmar Eliminación</h5>
+                                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                    </div>
+                                                    <div class="modal-body">
+                                                        ¿Estás seguro de que deseas eliminar este usuario?
+                                                    </div>
+                                                    <div class="modal-footer">
+                                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                                                        <button type="submit" class="btn btn-danger">Eliminar</button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </td>
+
                             </tr>
+                            @php
+                            $contador++;    
+                            @endphp
                             @endforeach
                         </tbody>
                     </table>

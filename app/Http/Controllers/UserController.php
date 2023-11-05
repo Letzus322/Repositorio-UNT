@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\User;
+use App\Models\SemestreCursoDocente;
 
 class UserController extends Controller
 { 
@@ -25,9 +26,33 @@ class UserController extends Controller
 
     public function mostrarDatos()
     {
-        $users = User::all(); // Obtén los datos de la base de datos
+        $users = User::where('type', 0)->get();
         return view('registrarProfesores')->with('users', $users); // Pasa los datos a la vista
     }
+
+
+    public function eliminarUsuario(Request $request)
+    {
+        // Obtén el ID del usuario a eliminar del formulario
+        $id = $request->input('id');
+
+        // Busca el usuario por su ID
+        $user = User::find($id);
+        SemestreCursoDocente::where('docente_id', $user->id)->delete();
+
+        // Verificar si el usuario existe
+        if ($user) {
+            // Eliminar el usuario de la base de datos
+            $user->delete();
+    
+            // Redirigir al usuario a una página de éxito o cualquier otra página que desees
+            return redirect()->route('registrarProfesores')->with('success', 'Usuario eliminado correctamente');
+        } else {
+            // Si el usuario no existe, redirigir con un mensaje de error
+            return redirect()->route('registrarProfesores')->with('error', 'Usuario no encontrado');
+        }
+    }
+
 
 
 }

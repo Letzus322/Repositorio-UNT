@@ -28,6 +28,8 @@
         @foreach ($carpetas as $carpeta)
         <div class="col-6 mb-3">
             <a href="{{ route('registrarFormatos', ['formatoId' => $carpeta->id]) }}" class="text-decoration-none">
+                
+            
                 <div class="card border-0  rounded text-center d-flex align-items-center justify-content-center">
                     <i class="bi bi-folder text-primary display-1 mb-2" style="margin-top: 20px;"></i>
 

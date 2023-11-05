@@ -46,13 +46,17 @@ Route::get('/adminSession/mostrarContenidos', [App\Http\Controllers\adminSession
 
 
 
+
 Route::get('/profesores', [App\Http\Controllers\UserController::class, 'mostrarDatos'])->name('registrarProfesores')->middleware(['auth', 'admin']);
 Route::post('/registerPropio', [App\Http\Controllers\CustomRegisterController2::class, 'register'])->name('registerPropio');
+Route::post('/eliminarUsuario', [App\Http\Controllers\UserController::class, 'eliminarUsuario'])->name('eliminar.usuario');
 
 
 Route::get('/cursos', [App\Http\Controllers\CursosController::class, 'index'])->name('registrarCursos')->middleware(['auth', 'admin']);
 
 Route::post('/cursos', [App\Http\Controllers\CursosController::class, 'store'])->name('cursos.store')->middleware('auth');
+Route::post('/eliminarCurso', [App\Http\Controllers\CursosController::class, 'eliminarCurso'])->name('eliminar.curso');
+
 
 Route::get('/semestres', [App\Http\Controllers\SemestreController::class, 'index'])->name('registrarSemestres')->middleware(['auth', 'admin']);
 

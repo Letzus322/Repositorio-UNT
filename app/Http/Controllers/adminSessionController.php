@@ -4,6 +4,9 @@ namespace App\Http\Controllers;
 use App\Models\Cursos;
 use App\Models\User;
 use App\Models\Semestre;
+use App\Models\Carpeta;
+use App\Models\Archivo;
+
 use App\Models\SemestreCursoDocente;
 use Illuminate\Support\Facades\Auth; // Importa la clase Auth
 use Illuminate\Support\Facades\Response;
@@ -12,21 +15,89 @@ use Illuminate\Support\Facades\Storage;
 use Illuminate\Http\Request;
 
 class adminSessionController extends Controller
-{
-    /**
-     * Display a listing of the resource.
-     */
+{   
     public function index()
     {
-        $ruta = storage_path('app/'); // Ruta a la carpeta de almacenamiento público
-
-        // Obtener la lista de archivos en la carpeta
-        $archivos = scandir($ruta);
+        // Obtener el año actual y el mes actual
+        $anoActual = date('Y');
+        $mesActual = date('n'); // Obtiene el número del mes sin ceros iniciales
     
-        // Eliminar los elementos '.' y '..' de la lista
-        $archivos = array_diff($archivos, ['.', '..']);
-        return view('adminSession', compact('archivos'));
+        // Determinar el número del semestre actual
+        $numeroSemestreActual = ($mesActual >= 2 && $mesActual <= 8) ? 1 : 2;
+    
+        // Crear el formato del semestre actual (por ejemplo, '2024 - 1' o '2024 - 2')
+        $semestreActual = $anoActual . ' - ' . $numeroSemestreActual;
+        $semestreId = Semestre::where('año', $anoActual)->where('numero', $numeroSemestreActual)->value('id');
 
+        // Obtener los cursos del semestre actual con sus profesores utilizando un join
+        $cursos = SemestreCursoDocente::with(['curso:id,NombreCurso', 'docente:id,name'])
+        ->where('semestre_id', $semestreId)
+        ->select('curso_id', 'docente_id')
+        ->get();
+        // Obtener los semestres disponibles
+        $semestres = Semestre::all();
+    
+        // Retornar a la vista con los datos
+
+
+        $estructura = $this->obtenerEstructuraCarpeta(Semestre::where('año', $anoActual)->where('numero', $numeroSemestreActual)->value('idCarpeta'));
+        $estructuraJSON = json_encode($estructura);
+        $estructuraJSON2 = json_encode($estructura);
+
+        $estructuraJSON = json_decode($estructuraJSON, true);
+
+    
+
+        return view('adminSession', compact('semestres', 'cursos', 'semestreActual','estructuraJSON','estructuraJSON2'));
+    }
+
+    public function obtenerEstructuraCarpeta($carpetaId)
+    {
+        $carpeta = Carpeta::find($carpetaId);
+        $gradoDescendencia = $this->contarGeneraciones($carpeta); // Obtener el grado de descendencia
+    
+        $estructura = [
+            'id' => $carpeta->id,
+            'nombre' => $carpeta->nombreCarpeta,
+            'gradoDescendencia' => $gradoDescendencia,
+            'hijos' => []
+        ];
+    
+        // Obtener todos los archivos de la carpeta actual
+        $archivos = Archivo::where('padre', $carpetaId)->get();
+    
+        // Agregar archivos como hijos directamente sin verificar si tienen subcarpetas
+        foreach ($archivos as $archivo) {
+            $estructura['hijos'][] = [
+                'id' => $archivo->id,
+                'nombre' => $archivo->nombreArchivo,
+                'gradoDescendencia' => $gradoDescendencia + 1, // Ajustar el grado de descendencia para los archivos
+                'hijos' => [] // Los archivos no pueden tener hijos, por lo tanto, esta matriz está vacía
+            ];
+        }
+    
+        // Obtener todas las subcarpetas de la carpeta actual y llamar recursivamente a la función para obtener su estructura
+        $subcarpetas = $carpeta->hijos;
+        foreach ($subcarpetas as $subcarpeta) {
+            $estructura['hijos'][] = $this->obtenerEstructuraCarpeta($subcarpeta->id);
+        }
+    
+        return $estructura;
+    }
+    
+
+    public function contarGeneraciones($carpeta)
+    {
+        $generaciones = 1; // Inicializamos en 1 para contar la generación actual
+    
+        if ($carpeta->hijos->count() > 0) {
+            // Si la carpeta tiene hijos, calculamos las generaciones de los hijos y agregamos 1
+            $generaciones += $carpeta->hijos->map(function ($subcarpeta) {
+                return $this->contarGeneraciones($subcarpeta);
+            })->max();
+        }
+    
+        return $generaciones;
     }
 
 

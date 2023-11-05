@@ -24,5 +24,7 @@ class SemestreCursoDocente extends Model
     {
         return $this->belongsTo(User::class, 'docente_id');
     }
+
+
 }
 
