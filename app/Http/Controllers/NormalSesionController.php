@@ -38,7 +38,15 @@ class NormalSesionController extends Controller
     public function mostrarContenidosCarpeta(Request $request)
     {   
         $datos = $request->input('datos');
+        $semestreActual = $request->input('semestre');
+        $archivoActual = $request->input('archivoActual');
+        $curso = $request->input('curso');
 
+
+        if (Cursos::where('NombreCurso', $request->input('archivoActual'))->exists()) 
+            {
+        $curso = $request->input('archivoActual');
+    }
         $ruta= 'app/'.$datos;
         // Obtener la lista de archivos y carpetas en la ruta especificada
         $archivos = scandir(storage_path($ruta));
@@ -46,7 +54,7 @@ class NormalSesionController extends Controller
         $archivos = array_diff($archivos, ['.', '..']);
  
         // Pasar la lista de archivos y carpetas a la vista
-        return view('semestreDocente', compact('archivos', 'datos'));
+        return view('semestreDocente', compact('archivos', 'datos','semestreActual','curso','archivoActual'));
     }
 
     public function download(Request $request)
@@ -76,7 +84,12 @@ class NormalSesionController extends Controller
 
 
     public function subirArchivo(Request $request)
-    {       $rutaArchivo = $request->input('ruta');
+    {   $rutaArchivo = $request->input('ruta');
+        $semestreActual = Semestre::find($request->input('semestre'));
+
+        $curso = $request->input('curso');
+        $docente = User::find($request->input('user'));
+
         // Validar el formulario
         $request->validate([
         ]);
@@ -84,8 +97,25 @@ class NormalSesionController extends Controller
         // Obtener el archivo del formulario
         $archivo = $request->file('archivo');
 
+        $patron = '/\$(año|Semestre|userName)\$/';
+
+        $texto = '[$año$-$Semestre$] Carga Horaria - $userName$';
+
+        $textoSustituido = preg_replace_callback($patron, function($matches) use ($semestreActual, $docente) {
+            switch($matches[1]) {
+                case 'año':
+                    return $semestreActual->año; // Aquí deberías tener definida la variable $año
+                case 'Semestre':
+                    return $semestreActual->numero; // Aquí deberías tener definida la variable $Semestre
+                case 'userName':
+                    return $docente->name; // Aquí deberías tener definida la variable $userName
+                default:
+                    return $matches[0]; // Si no coincide con ninguna variable, devolvemos el texto original
+            }
+        }, $texto);
+
         $nombreArchivoOriginal = $archivo->getClientOriginalName();
-        $rutaArchivo = $archivo->storeAs($rutaArchivo, $nombreArchivoOriginal);
+        $rutaArchivo = $archivo->storeAs($rutaArchivo, $textoSustituido);
 
       
         

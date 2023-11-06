@@ -66,8 +66,9 @@ class SemestreCursoDocenteController extends Controller
         $carpeta = 'Semestre'. '_' . $semestre->año . '_' . $semestre->numero;
         $carpeta = $carpeta . '/'.  $docente->name;
 
-        $carpeta2 ='Semestre'. '_' . $semestre->año . '_' . $semestre->numero . '/' . $docente->name . '/'.  $curso -> NombreCurso;
+        $carpeta2 ='Semestre'. '_' . $semestre->año . '_' . $semestre->numero . '/' . $docente->name . '/'. 'II Experiencia Curriculares/'. $curso -> NombreCurso;
 
+        $carpeta3 ='Semestre'. '_' . $semestre->año . '_' . $semestre->numero . '/' . $docente->name . '/'. 'I Carga Lectiva y Horario/';
 
         $idCarpeta = $semestre->idCarpeta;
         $this->crearEstructura($idCarpeta,$carpeta2);
@@ -87,7 +88,22 @@ class SemestreCursoDocenteController extends Controller
           
         }
 
+        $this->crearEstructura($idCarpeta,$carpeta2);
 
+        try {
+            // Verificar si la carpeta no existe
+            if (!Storage::exists($carpeta3)) {
+                // Intentar crear la carpeta
+                Storage::makeDirectory($carpeta3);
+               
+            } else {
+                            // 
+
+            }
+        } catch (\Exception $e) {            // 
+
+          
+        }
 
 
 

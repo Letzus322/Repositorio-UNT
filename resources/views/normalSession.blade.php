@@ -27,7 +27,7 @@
        
 
        <div class="col-6 mb-3">
-                <a href="{{ route('normalSesion.mostrarContenidos', ['datos' => 'Semestre_'.  $semestre->año .'_' . $semestre->numero . '/' .Auth::user()->name]) }}" class="text-decoration-none">
+                <a href="{{ route('normalSesion.mostrarContenidos', ['datos' => 'Semestre_'.  $semestre->año .'_' . $semestre->numero . '/' .Auth::user()->name , 'semestre' => $semestre->id]) }}" class="text-decoration-none">
                     <div class="card border-0 rounded text-center d-flex align-items-center justify-content-center">
                         <i class="bi bi-folder text-primary display-1 mb-2" style="margin-top: 20px;"></i>
                         <h6 class="card-title fw-bold">Año: {{ $semestre->año }} - Período: {{ $semestre->numero }}</h6>
