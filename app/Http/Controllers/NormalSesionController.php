@@ -196,10 +196,18 @@ class NormalSesionController extends Controller
     }
    
     public function sustituirVariables($texto, $semestreActual, $docente, $curso)
-    {
+    {   
+        if($curso!=''){
+        $cursoCompleto = Cursos::where('NombreCurso', $curso)->first();
+    }
+    else{
+        $cursoCompleto='';
+    }
+   
+        
         $patron = '/\$(año|semestre|userName|ciclo|curso)\$/';
     
-        $textoSustituido = preg_replace_callback($patron, function($matches) use ($semestreActual, $docente,$curso) {
+        $textoSustituido = preg_replace_callback($patron, function($matches) use ($semestreActual, $docente,$curso,$cursoCompleto) {
             switch($matches[1]) {
                 case 'año':
                     return substr($semestreActual->año, -2); // Aquí deberías tener definida la variable $año
@@ -208,7 +216,11 @@ class NormalSesionController extends Controller
                 case 'userName':
                     return $docente->name; // Aquí deberías tener definida la variable $userName
                 case 'ciclo':
-                    return '8'; // Aquí deberías tener definida la variable $userName
+                    if($curso!=''){
+                    return $cursoCompleto->ciclo; }
+                    else{
+                        return '8';
+                    }
                 case 'curso':
                     return $curso; // Aquí deberías tener definida la variable $userName
                 default:

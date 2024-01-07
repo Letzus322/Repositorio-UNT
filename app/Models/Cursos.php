@@ -10,7 +10,7 @@ class Cursos extends Model
 
     protected $table = 'cursos'; // Reemplaza 'nombre_de_tu_tabla' con el nombre real de tu tabla en la base de datos
 
-    protected $fillable = ['NombreCurso', 'MallaCurricular']; // Especifica las columnas que pueden ser llenadas masivamente
+    protected $fillable = ['NombreCurso', 'MallaCurricular','ciclo']; // Especifica las columnas que pueden ser llenadas masivamente
 
     public function semestreCursoDocentes()
     {

@@ -57,6 +57,13 @@
                                         <input type="text" class="form-control" id="malla_curricular"
                                             name="malla_curricular" required>
                                     </div>
+
+                                    <div class="col-md-6">
+                                        <label for="ciclo" class="form-label">Ciclo:</label>
+                                        <input type="int" class="form-control" id="ciclo"
+                                            name="ciclo" required>
+                                    </div>
+
                                     <div class="col-12">
                                         <button type="submit" class="btn btn-primary">Guardar Curso</button>
                                     </div>
@@ -79,6 +86,8 @@
                                     <th scope="col">Número</th>
                                     <th scope="col">Nombre</th>
                                     <th scope="col">Malla Curricular</th>
+                                    <th scope="col">Ciclo</th>
+
                                 </tr>
                             </thead>
                             <tbody>
@@ -87,6 +96,8 @@
                                     <th scope="row">{{ $curso->id }}</a></th>
                                     <td>{{ $curso->NombreCurso }}</td>
                                     <td>{{ $curso->MallaCurricular }}</td>
+                                    <td>{{ $curso->ciclo }}</td>
+
                                     <td>
                                         <form action="{{ route('eliminar.curso', ['id' => $curso->id]) }}" method="POST" class="d-inline">
                                             @csrf

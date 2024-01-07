@@ -48,6 +48,25 @@
 
 </div>
 
+@if ($archivoActual == 'I Carga Lectiva y Horario')
+<div class="col-12 mb-3">
+    <h4>[24-1] Carga Horaria -<?php echo e(Auth::user()->name);?></h4>
+    <form action="{{ route('normalSesion.subirArchivo') }}" method="POST" enctype="multipart/form-data" class="d-flex">
+        @csrf
+        <input type="hidden" name="ruta" value="{{ $datos }}"> <!-- Campo oculto para enviar la ruta -->
+        <input type="hidden" name="semestre" value="{{ $semestreActual }}"> <!-- Campo oculto para enviar la ruta -->
+        <input type="hidden" name="curso" value="{{ $curso }}"> <!-- Campo oculto para enviar la ruta -->
+        <input type="hidden" name="user" value="{{ Auth::user()->id }}"> <!-- Campo oculto para enviar la ruta -->
+        <input type="hidden" name="nombreArchivo" value="[24-1] Carga Horaria -<?php echo e(Auth::user()->name); ?>"> <!-- Campo oculto para enviar la ruta -->
+
+        <div class="flex-grow-1 me-2">
+            <input type="file" name="archivo" class="form-control" required>
+        </div>
+        <button type="submit" class="btn btn-primary">Subir Archivo</button>
+    </form>
+</div>
+
+@endif
 
 @if ($hijosEncontrados !== null)
 

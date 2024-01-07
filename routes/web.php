@@ -36,6 +36,10 @@ Route::post('/logout', [App\Http\Controllers\CustomLoginController::class, 'logo
 
 //USUARIOS RUTAS
 
+//
+
+Route::get('/profile', [App\Http\Controllers\Profile::class, 'editProfile'])->name('profile')->middleware(['auth', 'admin']);
+Route::post('/profile', [App\Http\Controllers\Profile::class, 'actualizar'])->name('actualizar')->middleware(['auth', 'admin']);
 
 
 //RUTAS DE LOS ADMINISTRADORES
@@ -78,6 +82,9 @@ Route::post('/formatos2', [App\Http\Controllers\ArchivoController::class, 'store
 
 
 //rutas de docentes
+Route::get('/profileDocente', [App\Http\Controllers\ProfileDocente::class, 'editProfile'])->name('profileDocente');
+Route::post('/profileDocente', [App\Http\Controllers\ProfileDocente::class, 'actualizar'])->name('actualizarProfileDocente');
+
 Route::get('/normalSesion', [App\Http\Controllers\NormalSesionController::class, 'index'])->name('normalSesion')->middleware('auth');
 Route::get('/normalSesion/download',[App\Http\Controllers\NormalSesionController::class, 'download'])->name('normalSesion.download');
 Route::get('/normalSesion/mostrarContenidos', [App\Http\Controllers\NormalSesionController::class, 'mostrarContenidosCarpeta'] )->name('normalSesion.mostrarContenidos');

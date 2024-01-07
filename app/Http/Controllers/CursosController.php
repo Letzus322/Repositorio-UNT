@@ -20,6 +20,8 @@ class CursosController extends Controller
         Cursos::create([
             'NombreCurso' => $request->nombre_curso,
             'MallaCurricular' => $request->malla_curricular,
+            'ciclo' => $request->ciclo,
+
         ]);
 
         return redirect()->route('registrarCursos')->with('success', 'Curso creado exitosamente.');

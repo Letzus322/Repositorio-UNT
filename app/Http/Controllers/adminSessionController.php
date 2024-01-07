@@ -23,14 +23,14 @@ class adminSessionController extends Controller
         $mesActual = date('n'); // Obtiene el número del mes sin ceros iniciales
     
         // Determinar el número del semestre actual
-        $numeroSemestreActual = ($mesActual >= 2 && $mesActual <= 8) ? 1 : 2;
+        $numeroSemestreActual = ($mesActual >= 1 && $mesActual <= 8) ? 1 : 2;
     
         // Crear el formato del semestre actual (por ejemplo, '2024 - 1' o '2024 - 2')
         $semestreActual = $anoActual . ' - ' . $numeroSemestreActual;
         $semestreId = Semestre::where('año', $anoActual)->where('numero', $numeroSemestreActual)->value('id');
 
         // Obtener los cursos del semestre actual con sus profesores utilizando un join
-        $cursos = SemestreCursoDocente::with(['curso:id,NombreCurso', 'docente:id,name'])
+        $cursos = SemestreCursoDocente::with(['curso:id,NombreCurso,ciclo', 'docente:id,name'])
         ->where('semestre_id', $semestreId)
         ->select('curso_id', 'docente_id')
         ->get();
@@ -46,10 +46,50 @@ class adminSessionController extends Controller
 
         $estructuraJSON = json_decode($estructuraJSON, true);
 
-    
-
-        return view('adminSession', compact('semestres', 'cursos', 'semestreActual','estructuraJSON','estructuraJSON2'));
+        $carpetasStorage = $this->obtenerEstructuraCarpetasArchivos("Semestre_2024_1");
+        //dd($carpetasStorage);
+        return view('adminSession', compact('semestres', 'cursos', 'semestreActual','estructuraJSON','estructuraJSON2','carpetasStorage'));
     }
+
+    public function obtenerEstructuraCarpetasArchivos($ruta)
+{
+    // Verificar si la ruta existe
+    if (Storage::exists($ruta)) {
+        // Obtener el contenido de la ruta (archivos y carpetas)
+        $contenido = Storage::files($ruta);
+        $carpetas = Storage::directories($ruta);
+
+        // Estructura para almacenar la jerarquía de carpetas y archivos
+        $estructura = [];
+
+        // Obtener información de carpetas
+        foreach ($carpetas as $carpeta) {
+            $nombreCarpeta = pathinfo($carpeta, PATHINFO_FILENAME);
+            $estructuraCarpeta = $this->obtenerEstructuraCarpetasArchivos($carpeta);
+            $estructura[] = [
+                'nombre' => $nombreCarpeta,
+                'subCarpetas' => $estructuraCarpeta,
+            ];
+        }
+
+        // Obtener información de archivos
+        foreach ($contenido as $item) {
+            $nombreArchivo = pathinfo($item, PATHINFO_FILENAME);
+            $estructura[] = [
+                'nombre' => $nombreArchivo,
+
+            ];
+        }
+
+        // Devolvemos la estructura de la carpeta actual
+        return $estructura;
+    } else {
+        // Si la ruta no existe, puedes manejarlo de la manera que desees (lanzar una excepción, devolver un mensaje, etc.)
+        return [
+            'error' => 'La ruta especificada no existe.',
+        ];
+    }
+}
 
     public function obtenerEstructuraCarpeta($carpetaId)
     {
@@ -60,7 +100,11 @@ class adminSessionController extends Controller
             'id' => $carpeta->id,
             'nombre' => $carpeta->nombreCarpeta,
             'gradoDescendencia' => $gradoDescendencia,
-            'hijos' => []
+            'hijos' => [],
+            'archivo' => false,
+
+            'existencia' => false
+            
         ];
     
         // Obtener todos los archivos de la carpeta actual
@@ -72,7 +116,10 @@ class adminSessionController extends Controller
                 'id' => $archivo->id,
                 'nombre' => $archivo->nombreArchivo,
                 'gradoDescendencia' => $gradoDescendencia + 1, // Ajustar el grado de descendencia para los archivos
-                'hijos' => [] // Los archivos no pueden tener hijos, por lo tanto, esta matriz está vacía
+                'hijos' => [] ,// Los archivos no pueden tener hijos, por lo tanto, esta matriz está vacía
+                'archivo' => true,
+
+                'existencia' =>  false
             ];
         }
     
